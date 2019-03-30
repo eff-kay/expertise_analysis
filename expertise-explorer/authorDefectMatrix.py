@@ -1,26 +1,51 @@
 import pickle
 from collections import namedtuple
+from repoExecutor import *
+from filterIssues import *
+
+
 AuthorCommitTuple = namedtuple('AuthorCommitTuple', ('author', 'commit'))
 
-
-
-
-if __name__=="__main__":
-
+def createDefectMatrix(project):
     defectMatrix=[]
-    with open('../projectData/defectAuthorRelation.p','rb') as r:
+    with open('../projectData/defectAuthorRelationFor'+project+'.p','rb') as r:
         defectMap = pickle.load(r)
         print(len(defectMap.items()))
 
         for parentCommit, fileDict in defectMap.items():
                 for fileName, listOfLines in fileDict.items():
                     for line, author, buggyCommit in listOfLines:
-                        print(parentCommit, fileName, line, " ".join(author), buggyCommit)
                         defectMatrix.append([parentCommit, fileName, line, " ".join(author), buggyCommit])
 
-
-
-    with open('../projectData/defectAuthorMatrix.p','wb+') as w:
+    with open('../projectData/defectAuthorMatrixFor'+project+'.p','wb+') as w:
         pickle.dump(defectMatrix, w)
+
+def createDefectMatrixFromMap(defectMap, project):
+    defectMatrix=[]
+
+    for parentCommit, fileDict in defectMap.items():
+            for fileName, listOfLines in fileDict.items():
+                for line, author, buggyCommit in listOfLines:
+                    print(parentCommit, fileName, line, " ".join(author), buggyCommit)
+                    defectMatrix.append([parentCommit, fileName, line, " ".join(author), buggyCommit])
+
+    with open('../projectData/defectAuthorMatrixFor'+project+'.p','wb+') as w:
+        pickle.dump(defectMatrix, w)
+
+import os
+if __name__=="__main__":
+    fileName= 'HDFS1000'
+    projectName='HDFS'
+    issues = getResolvedIssuesFromFile(fileName)
+    print(len(issues))
+    filteredIssues = filterGitLog(issues, '../projectData/issueList.json', projectName)
+    print(len(filteredIssues))
+    writeToFile(fileName, filteredIssues)
+
+    bugMap = createBugMap(fileName)
+    print(len(bugMap.items()))
+    createDefectMatrixFromMap(bugMap, fileName)
+    print('done')
+
 
 

@@ -34,10 +34,13 @@ def writeToFile(project, finalGitDict):
         json.dump(finalGitDict, f)
 
 if __name__=="__main__":
-    issues = getResolvedIssuesFromFile('HDFS')
+    fileName= 'HDFS2000'
+    projectName='HDFS'
+    issues = getResolvedIssuesFromFile(fileName)
     print(len(issues))
-    filteredIssues = filterGitLog(issues, '../projectData/issueList.json', 'HDFS')
-    writeToFile('HDFS', filteredIssues)
+    filteredIssues = filterGitLog(issues, '../projectData/issueList.json', projectName)
+    print(len(filteredIssues))
+    writeToFile(fileName, filteredIssues)
     # print(len(filteredIssues.items()))
 
     # with open("../projectData/filteredGitLogForHAD.json", 'r') as r:

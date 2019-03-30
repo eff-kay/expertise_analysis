@@ -173,13 +173,17 @@ def createBugMap(projectName):
         count += 1
         print("current count is at {}".format(count))
 
+    return bugMap
+
 
 def writeBugMapToFile(bugMap, projectName):
     with open('../ProjectData/defectAuthorRelationFor'+projectName+'.p','wb') as w:
         pickle.dump(bugMap, w)
 
 if __name__=="__main__":
-    projectName = 'HDFS'
+    fileName = 'HDFS2000'
     bugMap = createBugMap(projectName)
-    writeBugMapToFile(bugMap,projectName)
+
+    print(bugMap)
+    # writeBugMapToFile(bugMap,projectName)
 
