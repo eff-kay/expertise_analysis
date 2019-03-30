@@ -34,8 +34,8 @@ def createDefectMatrixFromMap(defectMap, project):
 
 import os
 if __name__=="__main__":
-    fileName= 'HDFS1000'
-    projectName='HDFS'
+    fileName= 'HADOOP2000'
+    projectName='HADO'
     issues = getResolvedIssuesFromFile(fileName)
     print(len(issues))
     filteredIssues = filterGitLog(issues, '../projectData/issueList.json', projectName)

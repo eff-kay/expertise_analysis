@@ -23,13 +23,10 @@ class RepoExecutor:
     def __init__(self, repo_name):
         self.repo_name = repo_name
 
-        if not os.path.isfile(f'./Repo'):
-            subprocess.run('mkdir Repo', shell=True)
-            print("creating Repo dir")
-
         if not os.path.isdir(f'./Repo/{self.repo_name}'):
             subprocess.run(";".join([
                 self.SAVE_CURRENT_WORKING_DIRECTORY,
+                f'mkdir Repo/',
                 f'cd Repo/',
                 self.CLONE_REPO[self.repo_name],
                 self.GO_BACK_TO_WORKING_DIRECTORY,
