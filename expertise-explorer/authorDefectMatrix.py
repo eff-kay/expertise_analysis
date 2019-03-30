@@ -10,6 +10,7 @@ if __name__=="__main__":
     defectMatrix=[]
     with open('../projectData/defectAuthorRelation.p','rb') as r:
         defectMap = pickle.load(r)
+        print(len(defectMap.items()))
 
         for parentCommit, fileDict in defectMap.items():
                 for fileName, listOfLines in fileDict.items():

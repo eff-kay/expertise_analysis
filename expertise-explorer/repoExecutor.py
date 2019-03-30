@@ -130,18 +130,16 @@ class GitCommands:
         return [authorName, commitId]
 
 
-if __name__=="__main__":
-    file = open('../projectData/filteredGitLog.json', 'r')
+def createBugMap(projectName):
+
+    file = open('../projectData/filteredGitLogFor'+projectName+'.json', 'r')
     filteredGitLog = json.load(file)
-
-    list(filteredGitLog.items())
-
     bugMap = {}
 
     GitCommands().checkout('master')
 
     count = 0
-    for k,v in list(filteredGitLog.items())[20:]:
+    for k,v in list(filteredGitLog.items())[:]:
         currentCommit, parentCommit = v[0]
         patch = GitCommands().getDiff(parentCommit, currentCommit)
 
@@ -174,5 +172,14 @@ if __name__=="__main__":
 
         count += 1
         print("current count is at {}".format(count))
-    with open('../ProjectData/defectAuthorRelation.p','ab') as w:
+
+
+def writeBugMapToFile(bugMap, projectName):
+    with open('../ProjectData/defectAuthorRelationFor'+projectName+'.p','wb') as w:
         pickle.dump(bugMap, w)
+
+if __name__=="__main__":
+    projectName = 'HDFS'
+    bugMap = createBugMap(projectName)
+    writeBugMapToFile(bugMap,projectName)
+
