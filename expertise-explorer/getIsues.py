@@ -1,7 +1,6 @@
 
 import json
 
-
 mapIds = {}
 
 def getIssues():
@@ -32,6 +31,17 @@ def getIssues():
 
 
 
+def getLines():
+
+    with open("Repo/hadoop/test.txt", 'r') as f:
+        lines = f.readlines()
+
+        for line in lines[:30]:
+
+            if not line[0].isalpha() and line[0] not in '\n':
+                splitLine = line.split(" ")
+                print(splitLine[1], splitLine[4], splitLine[6])
+
 
 if __name__=="__main__":
-    getIssues()
+    getLines()

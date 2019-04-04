@@ -149,6 +149,8 @@ def createBugMap(projectName):
             fileName = diff.header.old_path.split('/')[-1]
 
             if fileName.split(".")[-1]=='java':
+                if diff.changes==None:
+                    continue
                 for prevLine, currLine, text in diff.changes:
                     if currLine == None:
                         gitBlameText = GitCommands().gitBlame(diff.header.old_path, prevLine, prevLine)
