@@ -44,7 +44,26 @@ def getLines():
     with open('../projectData/authorExperienceLinesMatrix.p', 'wb') as w:
         pickle.dump(experienceMatrix, w)
 
+
+def experienceWithTime():
+    with open("Repo/hadoop/experience.txt", 'r') as f:
+        lines = f.readlines()
+
+        experienceTimeMatrix=[]
+
+        for line in lines:
+            if line[0].isalpha():
+                splitLine = line.split("&=&")
+                author, timeStamp, commit = splitLine[0],splitLine[1], splitLine[2]
+
+                experienceTimeMatrix.append([author, timeStamp, commit])
+
+    with open('../projectData/experienceTimeMatrix.p', 'wb') as w:
+        pickle.dump(experienceTimeMatrix, w)
+
+
 if __name__=="__main__":
+    # experienceWithTime()
     # getLines()
 
     # with open('../projectData/authorExperienceMatrix.p', 'rb') as r:
@@ -59,7 +78,8 @@ if __name__=="__main__":
     #         print(lDiffMatrix[i], lineMatrix[i])
 
 
-    with open("Repo/hadoop/test.txt", 'r') as f:
+    with open("Repo/hadoop/authorCommit.txt", 'r') as f:
         lines = f.readlines()
+        print(lines)
 
 
