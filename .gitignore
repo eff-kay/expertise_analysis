@@ -1,8 +1,9 @@
 *.idea
 *.csv
-*data
+data/
 *expertise-explorer/Repo/hadoop
 *.ipynb_checkpoints
 .DS_Store
 *.png
 *.pdf
+expertise-explorer/__pycache__/
